@@ -1,14 +1,12 @@
-# Making BST 
-
 # struct memory allocation 
-#   Offset 0    int val          (4 bytes) the value of integer stored
+#   Offset 0    int val, the value of integer stored
 #   Offset 4    padding 
-#   Offset 8    struct Node* left  (8 bytes)  pointer to left child
-#   Offset 16   struct Node* right (8 bytes)  pointer to right child
+#   Offset 8    struct Node* left,pointer to left child
+#   Offset 16   struct Node* right,pointer to right child
 
     .section .text      
 
-# The functions which are linked (C linker)
+# The functions which are linked
     .globl make_node
     .globl insert
     .globl get
