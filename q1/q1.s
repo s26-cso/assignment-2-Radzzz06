@@ -1,8 +1,10 @@
+# Making BST 
+
 # struct memory allocation 
-#   Offset 0    int val, the value of integer stored
+#   Offset 0    int val          (4 bytes) the value of integer stored
 #   Offset 4    padding 
-#   Offset 8    struct Node* left,  pointer to left child
-#   Offset 16   struct Node* right,  pointer to right child
+#   Offset 8    struct Node* left  (8 bytes)  pointer to left child
+#   Offset 16   struct Node* right (8 bytes)  pointer to right child
 
     .section .text      
 
@@ -197,7 +199,7 @@ getAtMost:
     sd      ra, 24(sp)
     sd      s0, 16(sp)          #s0 (val)
     sd      s1,  8(sp)          #s1 (root)
-    sd      s2,  0(sp)          #s2 (root->val candidate)
+    sd      s2,  0(sp)          #s2 (root->val predecessor)
 
     mv      s0, a0              # s0 = val  (the input integer)
     mv      s1, a1              # s1 = root (current node)
@@ -218,7 +220,7 @@ comparing:
 
     # Case 3: root->val < val trying to find even better value
 
-gam_candidate:
+predecessor:
     mv      s2, t1              # s2 = root->val  (save our best so far)
     mv      a0, s0              # a0 = val
     ld      a1, 16(s1)          # a1 = root->right
@@ -230,7 +232,7 @@ gam_candidate:
     j       gamDone                  # right found something, a0 is already set
 
 useSaved:
-    mv      a0, s2              # return root->val (best candidate we saved)
+    mv      a0, s2              # return root->val (best predecessor we saved)
     j       gamDone
 
 Left:
